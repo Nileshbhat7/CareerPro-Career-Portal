@@ -5,57 +5,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-tertiary-container: #191c1e;
-  --color-on-tertiary-container: #818486;
-  --color-on-error-container: #93000a;
-  --color-on-surface: #0b1c30;
-  --color-primary-container: #131b2e;
-  --color-on-secondary-fixed-variant: #004395;
-  --color-secondary-fixed-dim: #adc6ff;
-  --color-tertiary-fixed: #e0e3e5;
-  --color-secondary-container: #2170e4;
-  --color-on-primary-fixed: #131b2e;
-  --color-error-container: #ffdad6;
-  --color-background: #f8f9ff;
-  --color-on-tertiary-fixed: #191c1e;
-  --color-secondary-fixed: #d8e2ff;
-  --color-surface-container-high: #dce9ff;
-  --color-on-tertiary: #ffffff;
-  --color-inverse-surface: #213145;
-  --color-outline-variant: #c6c6cd;
-  --color-on-secondary-fixed: #001a42;
-  --color-surface-container-lowest: #ffffff;
-  --color-error: #ba1a1a;
-  --color-tertiary-fixed-dim: #c4c7c9;
-  --color-on-primary: #ffffff;
-  --color-secondary: #0058be;
-  --color-inverse-on-surface: #eaf1ff;
-  --color-surface-dim: #cbdbf5;
-  --color-on-error: #ffffff;
-  --color-primary-fixed-dim: #bec6e0;
-  --color-surface-container-low: #eff4ff;
-  --color-surface-variant: #d3e4fe;
-  --color-primary-fixed: #dae2fd;
-  --color-surface-tint: #565e74;
-  --color-on-surface-variant: #45464d;
-  --color-tertiary: #000000;
-  --color-surface-container: #e5eeff;
-  --color-inverse-primary: #bec6e0;
-  --color-primary: #0f172a;
-  --color-on-secondary-container: #fefcff;
-  --color-outline: #76777d;
-  --color-on-tertiary-fixed-variant: #444749;
-  --color-on-primary-fixed-variant: #3f465c;
-  --color-on-secondary: #ffffff;
-  --color-on-background: #0b1c30;
-  --color-surface-bright: #f8f9ff;
-  --color-on-primary-container: #7c839b;
-  --color-surface-container-highest: #d3e4fe;
-  --color-surface: #f8f9ff;
-
   --font-body: 'Inter', sans-serif;
   --font-headline: 'Manrope', sans-serif;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @utility material-symbols-outlined {
   font-family: 'Material Symbols Outlined';
@@ -75,17 +29,17 @@
 }
 
 body {
-  @apply bg-background text-on-surface font-body antialiased min-h-screen flex flex-col transition-colors duration-300;
+  @apply bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 font-body antialiased min-h-screen flex flex-col transition-colors duration-300;
 }
 
 /* Custom scrollbar for modern premium look */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-outline-variant/50 rounded-full hover:bg-outline/50;
+  @apply bg-slate-400/30 rounded-full hover:bg-slate-400/50 dark:bg-slate-700/30 dark:hover:bg-slate-700/50;
 }
