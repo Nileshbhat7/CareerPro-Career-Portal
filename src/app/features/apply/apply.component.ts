@@ -9,7 +9,8 @@ import { Job } from '../../models/job.model';
   selector: 'app-apply',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './apply.component.html'
+  templateUrl: './apply.component.html',
+  styleUrl: './apply.component.css'
 })
 export class ApplyComponent implements OnInit {
   job?: Job;

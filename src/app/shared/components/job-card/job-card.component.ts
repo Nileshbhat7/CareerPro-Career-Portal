@@ -7,7 +7,8 @@ import { Job } from '../../../models/job.model';
   selector: 'app-job-card',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './job-card.component.html'
+  templateUrl: './job-card.component.html',
+  styleUrl: './job-card.component.css'
 })
 export class JobCardComponent {
   @Input({ required: true }) job!: Job;

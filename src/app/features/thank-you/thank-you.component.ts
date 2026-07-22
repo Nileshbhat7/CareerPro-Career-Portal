@@ -6,7 +6,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   selector: 'app-thank-you',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './thank-you.component.html'
+  templateUrl: './thank-you.component.html',
+  styleUrl: './thank-you.component.css'
 })
 export class ThankYouComponent implements OnInit {
   jobTitle = '';

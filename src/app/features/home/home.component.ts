@@ -11,7 +11,8 @@ import { JobCardComponent } from '../../shared/components/job-card/job-card.comp
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule, JobCardComponent],
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
   searchTitle: string = '';

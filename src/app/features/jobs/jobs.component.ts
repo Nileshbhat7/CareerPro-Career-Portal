@@ -12,7 +12,8 @@ import { JobCardComponent } from '../../shared/components/job-card/job-card.comp
   selector: 'app-jobs',
   standalone: true,
   imports: [CommonModule, FormsModule, JobCardComponent],
-  templateUrl: './jobs.component.html'
+  templateUrl: './jobs.component.html',
+  styleUrl: './jobs.component.css'
 })
 export class JobsComponent implements OnInit, OnDestroy {
   // Filter Options referencing JobService lists

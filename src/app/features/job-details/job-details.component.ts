@@ -8,7 +8,8 @@ import { Job } from '../../models/job.model';
   selector: 'app-job-details',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './job-details.component.html'
+  templateUrl: './job-details.component.html',
+  styleUrl: './job-details.component.css'
 })
 export class JobDetailsComponent implements OnInit {
   job?: Job;

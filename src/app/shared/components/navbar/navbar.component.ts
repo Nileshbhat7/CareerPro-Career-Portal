@@ -8,7 +8,8 @@ import { JobService } from '../../../services/job.service';
   selector: 'app-navbar',
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
-  templateUrl: './navbar.component.html'
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
   bookmarkCount = () => this.jobService.bookmarkedIds().length;
