@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { JobService } from '../../services/job.service';
 import { Job } from '../../models/job.model';
@@ -8,7 +8,7 @@ import { Job } from '../../models/job.model';
 @Component({
   selector: 'app-apply',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule],
   template: `
     <main class="flex-grow pt-24 pb-16 px-6 md:px-12 max-w-4xl mx-auto w-full transition-colors duration-300">
       
