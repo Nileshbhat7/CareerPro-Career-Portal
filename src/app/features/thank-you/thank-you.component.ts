@@ -1,0 +1,59 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-thank-you',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  template: `
+    <main class="flex-grow pt-24 pb-16 px-6 md:px-12 max-w-2xl mx-auto w-full text-center flex flex-col justify-center items-center transition-colors duration-300">
+      
+      <!-- Success Icon -->
+      <div class="w-20 h-20 bg-green-50 dark:bg-green-950/40 rounded-full flex items-center justify-center text-green-500 dark:text-green-400 mb-8 border border-green-200 dark:border-green-800">
+        <span class="material-symbols-outlined text-4xl animate-bounce">check_circle</span>
+      </div>
+
+      <h1 class="font-headline text-3xl md:text-4xl font-bold text-on-surface dark:text-white mb-4">
+        Thank you for applying!
+      </h1>
+      
+      <p class="font-body text-body-md text-on-surface-variant dark:text-gray-300 max-w-md mx-auto leading-relaxed mb-6">
+        Our recruitment team will contact you if your profile matches our requirements.
+      </p>
+
+      <!-- Details of submission -->
+      <div class="bg-surface-container-lowest dark:bg-[#122338] border border-outline-variant/30 dark:border-gray-800 p-6 rounded-2xl max-w-md w-full mb-8" *ngIf="jobTitle">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-on-surface-variant dark:text-gray-400 mb-2">Applied Position</h2>
+        <p class="font-headline text-lg font-bold text-on-surface dark:text-white">{{ jobTitle }}</p>
+        <p class="font-body text-body-sm text-secondary dark:text-secondary-fixed font-semibold mt-0.5">{{ company }}</p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-md">
+        <a routerLink="/" 
+           class="flex-1 bg-surface-container-high dark:bg-[#0b1c30] text-on-surface dark:text-white font-label-md py-3.5 rounded-xl hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+          Go to Home
+        </a>
+        <a routerLink="/jobs" 
+           class="flex-1 bg-primary dark:bg-secondary text-on-primary dark:text-white font-label-md py-3.5 rounded-xl hover:bg-surface-tint dark:hover:bg-blue-600 transition-colors active:scale-95 duration-200">
+          Browse More Jobs
+        </a>
+      </div>
+
+    </main>
+  `
+})
+export class ThankYouComponent implements OnInit {
+  jobTitle = '';
+  company = '';
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.jobTitle = params['job'] || '';
+      this.company = params['company'] || '';
+    });
+  }
+}
