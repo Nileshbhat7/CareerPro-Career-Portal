@@ -29,13 +29,7 @@ export class HomeComponent implements OnInit {
     const trimmedTitle = this.searchTitle.trim();
     const trimmedLocation = this.searchLocation.trim();
 
-    this.jobService.resetFilters();
-    if (trimmedTitle) {
-      this.jobService.setSearch(trimmedTitle);
-    }
-    if (trimmedLocation) {
-      this.jobService.toggleFilter('location', trimmedLocation);
-    }
+    this.jobService.setFiltersFromSearch(trimmedTitle, trimmedLocation);
     this.router.navigate(['/jobs']);
   }
 

@@ -166,6 +166,12 @@ export class JobService {
     }
   ];
 
+  // Master Predefined Lists for UI and Casing Normalization
+  readonly locationsList = ['Ahmedabad', 'Bangalore', 'Pune', 'Hyderabad', 'Mumbai'];
+  readonly experiencesList = ['Fresher', '2-4 Years', '5-8 Years'];
+  readonly jobTypesList = ['Full Time', 'Part Time', 'Contract'];
+  readonly workplacesList = ['Remote', 'Hybrid', 'Office'];
+
   // State Signals
   readonly searchQuery = signal<string>('');
   readonly selectedLocations = signal<string[]>([]);
@@ -206,34 +212,39 @@ export class JobService {
     const workplaces = this.selectedWorkplaces();
     let result = this.jobs();
 
-    // 1. Search filter
+    // 1. Search filter (checks title, company, location, skills, and description)
     if (query) {
       result = result.filter(job => 
         job.title.toLowerCase().includes(query) ||
         job.company.toLowerCase().includes(query) ||
+        job.location.toLowerCase().includes(query) ||
         job.skills.some(skill => skill.toLowerCase().includes(query)) ||
         job.description.toLowerCase().includes(query)
       );
     }
 
-    // 2. Location filter
+    // 2. Location filter (case-insensitive)
     if (locations.length > 0) {
-      result = result.filter(job => locations.includes(job.location));
+      const lowerLocations = locations.map(l => l.toLowerCase());
+      result = result.filter(job => lowerLocations.includes(job.location.toLowerCase()));
     }
 
-    // 3. Experience filter
+    // 3. Experience filter (case-insensitive)
     if (experiences.length > 0) {
-      result = result.filter(job => experiences.includes(job.experience));
+      const lowerExperiences = experiences.map(e => e.toLowerCase());
+      result = result.filter(job => lowerExperiences.includes(job.experience.toLowerCase()));
     }
 
-    // 4. Job Type filter
+    // 4. Job Type filter (case-insensitive)
     if (types.length > 0) {
-      result = result.filter(job => types.includes(job.type));
+      const lowerTypes = types.map(t => t.toLowerCase());
+      result = result.filter(job => lowerTypes.includes(job.type.toLowerCase()));
     }
 
-    // 5. Workplace filter
+    // 5. Workplace filter (case-insensitive)
     if (workplaces.length > 0) {
-      result = result.filter(job => workplaces.includes(job.workplace));
+      const lowerWorkplaces = workplaces.map(w => w.toLowerCase());
+      result = result.filter(job => lowerWorkplaces.includes(job.workplace.toLowerCase()));
     }
 
     return result;
@@ -290,20 +301,47 @@ export class JobService {
 
   toggleFilter(category: 'location' | 'experience' | 'type' | 'workplace', value: string) {
     this.currentPage.set(1);
+    let normalizedValue = value;
+
     switch (category) {
-      case 'location':
-        this.selectedLocations.update(list => list.includes(value) ? list.filter(v => v !== value) : [...list, value]);
+      case 'location': {
+        const found = this.locationsList.find(l => l.toLowerCase() === value.toLowerCase());
+        if (found) normalizedValue = found;
+        this.selectedLocations.update(list => list.includes(normalizedValue) ? list.filter(v => v !== normalizedValue) : [...list, normalizedValue]);
         break;
-      case 'experience':
-        this.selectedExperiences.update(list => list.includes(value) ? list.filter(v => v !== value) : [...list, value]);
+      }
+      case 'experience': {
+        const found = this.experiencesList.find(e => e.toLowerCase() === value.toLowerCase());
+        if (found) normalizedValue = found;
+        this.selectedExperiences.update(list => list.includes(normalizedValue) ? list.filter(v => v !== normalizedValue) : [...list, normalizedValue]);
         break;
-      case 'type':
-        this.selectedTypes.update(list => list.includes(value) ? list.filter(v => v !== value) : [...list, value]);
+      }
+      case 'type': {
+        const found = this.jobTypesList.find(t => t.toLowerCase() === value.toLowerCase());
+        if (found) normalizedValue = found;
+        this.selectedTypes.update(list => list.includes(normalizedValue) ? list.filter(v => v !== normalizedValue) : [...list, normalizedValue]);
         break;
-      case 'workplace':
-        this.selectedWorkplaces.update(list => list.includes(value) ? list.filter(v => v !== value) : [...list, value]);
+      }
+      case 'workplace': {
+        const found = this.workplacesList.find(w => w.toLowerCase() === value.toLowerCase());
+        if (found) normalizedValue = found;
+        this.selectedWorkplaces.update(list => list.includes(normalizedValue) ? list.filter(v => v !== normalizedValue) : [...list, normalizedValue]);
         break;
+      }
     }
+  }
+
+  setFiltersFromSearch(title: string, location: string) {
+    this.resetFilters();
+    if (title) {
+      this.searchQuery.set(title);
+    }
+    if (location) {
+      const found = this.locationsList.find(l => l.toLowerCase() === location.toLowerCase());
+      const valToAdd = found || location;
+      this.selectedLocations.set([valToAdd]);
+    }
+    this.currentPage.set(1);
   }
 
   resetFilters() {

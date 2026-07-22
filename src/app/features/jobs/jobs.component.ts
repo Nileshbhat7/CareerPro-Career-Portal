@@ -13,11 +13,11 @@ import { Job } from '../../models/job.model';
   templateUrl: './jobs.component.html'
 })
 export class JobsComponent implements OnInit, OnDestroy {
-  // Filter Options
-  locations = ['Ahmedabad', 'Bangalore', 'Pune', 'Hyderabad', 'Mumbai'];
-  experiences = ['Fresher', '2-4 Years', '5-8 Years'];
-  jobTypes = ['Full Time', 'Part Time', 'Contract'];
-  workplaces = ['Remote', 'Hybrid', 'Office'];
+  // Filter Options referencing JobService lists
+  locations: string[] = [];
+  experiences: string[] = [];
+  jobTypes: string[] = [];
+  workplaces: string[] = [];
 
   showBookmarkedOnly = false;
   skeletonActive = false;
@@ -26,11 +26,21 @@ export class JobsComponent implements OnInit, OnDestroy {
   constructor(
     public jobService: JobService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.locations = this.jobService.locationsList;
+    this.experiences = this.jobService.experiencesList;
+    this.jobTypes = this.jobService.jobTypesList;
+    this.workplaces = this.jobService.workplacesList;
+  }
 
   ngOnInit() {
     this.querySub = this.route.queryParams.subscribe(params => {
-      this.showBookmarkedOnly = params['bookmarkedOnly'] === 'true';
+      const isBookmarks = params['bookmarkedOnly'] === 'true';
+      // Reset filters when switching between Bookmarks and general Search list
+      if (isBookmarks !== this.showBookmarkedOnly) {
+        this.jobService.resetFilters();
+      }
+      this.showBookmarkedOnly = isBookmarks;
       this.jobService.currentPage.set(1);
     });
   }
