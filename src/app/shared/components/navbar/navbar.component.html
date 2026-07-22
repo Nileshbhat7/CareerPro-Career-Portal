@@ -1,0 +1,46 @@
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md dark:bg-[#0b1c30]/80 border-b border-outline-variant/30 transition-all duration-300">
+  <div class="flex justify-between items-center w-full px-6 md:px-12 max-w-7xl mx-auto h-16">
+    
+    <!-- Logo -->
+    <a routerLink="/" class="font-headline text-2xl font-bold text-on-surface dark:text-white flex items-center gap-2 select-none">
+      <span class="material-symbols-outlined text-secondary dark:text-secondary-fixed">work</span>
+      CareerPro
+    </a>
+
+    <!-- Navigation Links -->
+    <nav class="hidden md:flex items-center gap-8">
+      <a routerLink="/" routerLinkActive="text-secondary dark:text-secondary-fixed font-semibold" [routerLinkActiveOptions]="{exact: true}" 
+         class="font-body text-body-md text-on-surface-variant dark:text-gray-300 hover:text-secondary dark:hover:text-white transition-colors duration-200">
+        Home
+      </a>
+      <a routerLink="/jobs" routerLinkActive="text-secondary dark:text-secondary-fixed font-semibold"
+         class="font-body text-body-md text-on-surface-variant dark:text-gray-300 hover:text-secondary dark:hover:text-white transition-colors duration-200 relative">
+        Browse Jobs
+      </a>
+      <a routerLink="/jobs" [queryParams]="{ bookmarkedOnly: true }" routerLinkActive="text-secondary dark:text-secondary-fixed font-semibold"
+         class="font-body text-body-md text-on-surface-variant dark:text-gray-300 hover:text-secondary dark:hover:text-white transition-colors duration-200 flex items-center gap-1">
+        Bookmarks
+        <span *ngIf="bookmarkCount() > 0" class="bg-secondary text-white text-xs px-2 py-0.5 rounded-full">
+          {{ bookmarkCount() }}
+        </span>
+      </a>
+    </nav>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-4">
+      <!-- Theme Toggle Button -->
+      <button (click)="themeService.toggleTheme()" id="theme-toggle" aria-label="Toggle Dark Mode"
+              class="p-2 rounded-lg bg-surface-container-low dark:bg-tertiary-container text-on-surface-variant dark:text-gray-300 hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+        <span class="material-symbols-outlined">
+          {{ themeService.isDarkMode() ? 'light_mode' : 'dark_mode' }}
+        </span>
+      </button>
+
+      <!-- Search CTA -->
+      <a routerLink="/jobs" 
+         class="hidden sm:inline-flex items-center justify-center bg-primary dark:bg-secondary text-on-primary dark:text-white font-label-md px-5 py-2 rounded-lg hover:bg-surface-tint dark:hover:bg-blue-600 transition-colors active:scale-95 duration-200">
+        Apply Now
+      </a>
+    </div>
+  </div>
+</header>

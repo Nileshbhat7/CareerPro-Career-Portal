@@ -6,49 +6,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-footer',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  template: `
-    <footer class="w-full bg-surface-container-low dark:bg-[#08121e] border-t border-outline-variant/20 transition-colors duration-300">
-      <div class="max-w-7xl mx-auto px-6 md:px-12 py-10">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-          
-          <!-- Brand Column -->
-          <div class="md:col-span-5 space-y-4">
-            <a routerLink="/" class="font-headline text-2xl font-bold text-on-surface dark:text-white flex items-center gap-2">
-              <span class="material-symbols-outlined text-secondary dark:text-secondary-fixed">work</span>
-              CareerPro
-            </a>
-            <p class="font-body text-body-sm text-on-surface-variant dark:text-gray-400 max-w-sm">
-              Discover opportunities that align with your ambition. Join a network of high-growth professionals and top-tier companies.
-            </p>
-            <p class="font-body text-body-sm text-on-surface-variant dark:text-gray-500">
-              © 2026 CareerPro Inc. All rights reserved.
-            </p>
-          </div>
-
-          <!-- Quick Links -->
-          <div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
-            <div class="flex flex-col gap-3 font-body text-body-sm">
-              <span class="font-bold text-on-surface dark:text-white">Platform</span>
-              <a routerLink="/jobs" class="text-on-surface-variant dark:text-gray-400 hover:text-secondary dark:hover:text-white transition-colors duration-200">Browse Jobs</a>
-              <a routerLink="/" class="text-on-surface-variant dark:text-gray-400 hover:text-secondary dark:hover:text-white transition-colors duration-200">Featured Roles</a>
-            </div>
-            
-            <div class="flex flex-col gap-3 font-body text-body-sm">
-              <span class="font-bold text-on-surface dark:text-white">Legal</span>
-              <a href="#" class="text-on-surface-variant dark:text-gray-400 hover:text-secondary dark:hover:text-white transition-colors duration-200">Privacy Policy</a>
-              <a href="#" class="text-on-surface-variant dark:text-gray-400 hover:text-secondary dark:hover:text-white transition-colors duration-200">Terms of Service</a>
-            </div>
-
-            <div class="flex flex-col gap-3 font-body text-body-sm">
-              <span class="font-bold text-on-surface dark:text-white">Contact</span>
-              <a href="mailto:support&#64;careerpro.com" class="text-on-surface-variant dark:text-gray-400 hover:text-secondary dark:hover:text-white transition-colors duration-200">support&#64;careerpro.com</a>
-              <span class="text-on-surface-variant dark:text-gray-400">+1 (555) 019-2834</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </footer>
-  `
+  templateUrl: './footer.component.html'
 })
 export class FooterComponent {}
