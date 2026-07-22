@@ -1,15 +1,17 @@
 import { Component, OnInit, OnDestroy, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { JobService } from '../../services/job.service';
 import { Job } from '../../models/job.model';
 
+import { JobCardComponent } from '../../shared/components/job-card/job-card.component';
+
 @Component({
   selector: 'app-jobs',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, FormsModule, JobCardComponent],
   templateUrl: './jobs.component.html'
 })
 export class JobsComponent implements OnInit, OnDestroy {

@@ -5,10 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { JobService } from '../../services/job.service';
 import { Job } from '../../models/job.model';
 
+import { JobCardComponent } from '../../shared/components/job-card/job-card.component';
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, JobCardComponent],
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
@@ -31,6 +33,14 @@ export class HomeComponent implements OnInit {
 
     this.jobService.setFiltersFromSearch(trimmedTitle, trimmedLocation);
     this.router.navigate(['/jobs']);
+  }
+
+  toggleBookmark(id: number): void {
+    this.jobService.toggleBookmark(id);
+  }
+
+  isBookmarked(id: number): boolean {
+    return this.jobService.isBookmarked(id);
   }
 
   trackByJobId(index: number, job: Job): number {

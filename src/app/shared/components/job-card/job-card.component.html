@@ -1,0 +1,60 @@
+<div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 relative overflow-hidden group shadow-sm">
+  <div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent group-hover:bg-blue-600 dark:group-hover:bg-blue-400 transition-colors"></div>
+  
+  <div class="space-y-3 flex-grow text-left">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-xs px-2.5 py-1 rounded-full font-medium">
+        {{ job.type }}
+      </span>
+      <span class="bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-300 text-xs px-2.5 py-1 rounded-full font-medium">
+        {{ job.workplace }}
+      </span>
+      <span *ngIf="job.salary" class="bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 text-xs px-2.5 py-1 rounded-full font-medium">
+        {{ job.salary }}
+      </span>
+    </div>
+
+    <div>
+      <h3 [routerLink]="['/jobs', job.id]" 
+          class="font-headline text-xl font-bold text-slate-900 dark:text-white cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors inline-block">
+        {{ job.title }}
+      </h3>
+      <p class="font-body text-xs text-slate-550 dark:text-slate-400 mt-0.5">{{ job.company }}</p>
+    </div>
+
+    <!-- Info Chips -->
+    <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-slate-400 font-body">
+      <span class="flex items-center gap-1">
+        <span class="material-symbols-outlined text-[16px] text-slate-400">location_on</span>
+        {{ job.location }}
+      </span>
+      <span class="flex items-center gap-1">
+        <span class="material-symbols-outlined text-[16px] text-slate-400">business_center</span>
+        {{ job.experience }}
+      </span>
+      <span class="flex items-center gap-1">
+        <span class="material-symbols-outlined text-[16px] text-slate-400">calendar_today</span>
+        Posted {{ job.postedDate }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex items-center sm:flex-col sm:items-end gap-3 justify-between sm:justify-center flex-shrink-0">
+    <!-- Bookmark Icon Toggle -->
+    <button (click)="onBookmarkClick()"
+            class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 hover:bg-slate-100 dark:bg-slate-950 dark:hover:bg-slate-800 text-slate-650 dark:text-slate-300 transition-colors active:scale-95 duration-200">
+      <span class="material-symbols-outlined" 
+            [class.text-amber-500]="isBookmarked" 
+            [class.fill-1]="isBookmarked"
+            [style.font-variation-settings]="isBookmarked ? '\'FILL\' 1' : ''">
+        star
+      </span>
+    </button>
+    
+    <a [routerLink]="['/jobs', job.id]" 
+       class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 text-center text-sm active:scale-95 shadow-sm shadow-blue-500/10">
+      View Details
+    </a>
+  </div>
+</div>
