@@ -75,7 +75,7 @@ import { Job } from '../../models/job.model';
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div *ngFor="let job of featuredJobs" 
+          <div *ngFor="let job of featuredJobs; trackBy: trackByJobId" 
                class="bg-surface-container-lowest dark:bg-[#122338] border border-outline-variant/30 dark:border-gray-800 rounded-2xl p-6 flex flex-col justify-between hover:border-secondary dark:hover:border-secondary-fixed transition-all duration-300 hover:shadow-lg">
             <div>
               <div class="flex justify-between items-start mb-4">
@@ -93,7 +93,7 @@ import { Job } from '../../models/job.model';
               <p class="font-body text-body-sm text-on-surface-variant dark:text-gray-400 mb-4">{{ job.company }}</p>
               
               <div class="flex flex-wrap gap-2 mb-6">
-                <span *ngFor="let skill of job.skills.slice(0, 3)" 
+                <span *ngFor="let skill of job.skills.slice(0, 3); trackBy: trackBySkill" 
                       class="bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-xs px-2.5 py-1 rounded-md font-medium">
                   {{ skill }}
                 </span>
@@ -165,19 +165,30 @@ export class HomeComponent implements OnInit {
     private jobService: JobService
   ) {}
 
-  ngOnInit() {
-    // Get first 3 jobs as featured
+  ngOnInit(): void {
     this.featuredJobs = this.jobService.jobs().slice(0, 3);
   }
 
-  onSearch() {
+  onSearch(): void {
+    const trimmedTitle = this.searchTitle.trim();
+    const trimmedLocation = this.searchLocation.trim();
+
     this.jobService.resetFilters();
-    if (this.searchTitle) {
-      this.jobService.setSearch(this.searchTitle);
+    if (trimmedTitle) {
+      this.jobService.setSearch(trimmedTitle);
     }
-    if (this.searchLocation) {
-      this.jobService.toggleFilter('location', this.searchLocation);
+    if (trimmedLocation) {
+      this.jobService.toggleFilter('location', trimmedLocation);
     }
     this.router.navigate(['/jobs']);
   }
+
+  trackByJobId(index: number, job: Job): number {
+    return job.id;
+  }
+
+  trackBySkill(index: number, skill: string): string {
+    return skill;
+  }
 }
+
