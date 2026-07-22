@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy, computed, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, computed, signal, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { JobService } from '../../services/job.service';
 import { Job } from '../../models/job.model';
 
@@ -24,11 +25,16 @@ export class JobsComponent implements OnInit, OnDestroy {
 
   showBookmarkedOnly = false;
   skeletonActive = false;
+  searchQueryText = '';
   private querySub?: Subscription;
+  private searchSubject = new Subject<string>();
+  private searchSub?: Subscription;
+  private skeletonTimeout?: any;
 
   constructor(
     public jobService: JobService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {
     this.locations = this.jobService.locationsList;
     this.experiences = this.jobService.experiencesList;
@@ -37,6 +43,20 @@ export class JobsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.searchQueryText = this.jobService.searchQuery();
+
+    this.searchSub = this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(val => {
+      clearTimeout(this.skeletonTimeout);
+      this.jobService.setSearch(val);
+      this.skeletonTimeout = setTimeout(() => {
+        this.skeletonActive = false;
+        this.cdr.detectChanges();
+      }, 1000); // 1-second delay after typing stops
+    });
+
     this.querySub = this.route.queryParams.subscribe(params => {
       const isBookmarks = params['bookmarkedOnly'] === 'true';
       // Reset filters when switching between Bookmarks and general Search list
@@ -45,11 +65,14 @@ export class JobsComponent implements OnInit, OnDestroy {
       }
       this.showBookmarkedOnly = isBookmarks;
       this.jobService.currentPage.set(1);
+      this.searchQueryText = this.jobService.searchQuery();
     });
   }
 
   ngOnDestroy() {
     this.querySub?.unsubscribe();
+    this.searchSub?.unsubscribe();
+    clearTimeout(this.skeletonTimeout);
   }
 
   // Jobs retrieval taking bookmarks parameter into account
@@ -100,8 +123,9 @@ export class JobsComponent implements OnInit, OnDestroy {
   }
 
   onSearchChange(val: string) {
-    this.triggerSkeleton();
-    this.jobService.setSearch(val);
+    clearTimeout(this.skeletonTimeout);
+    this.skeletonActive = true;
+    this.searchSubject.next(val);
   }
 
   onSortChange(val: string) {
@@ -110,6 +134,8 @@ export class JobsComponent implements OnInit, OnDestroy {
   }
 
   resetFilters() {
+    clearTimeout(this.skeletonTimeout);
+    this.searchQueryText = '';
     this.triggerSkeleton();
     this.jobService.resetFilters();
   }
@@ -126,6 +152,7 @@ export class JobsComponent implements OnInit, OnDestroy {
     this.skeletonActive = true;
     setTimeout(() => {
       this.skeletonActive = false;
+      this.cdr.detectChanges();
     }, 450); // Simulate network load latency
   }
 }
