@@ -1,39 +1,43 @@
-<main class="flex-grow pt-24 pb-16 px-6 md:px-12 max-w-7xl mx-auto w-full transition-colors duration-300">
+<main class="relative flex-grow pt-24 pb-16 px-6 md:px-12 max-w-7xl mx-auto w-full transition-colors duration-300 z-10">
   
+  <!-- Decorative background elements -->
+  <div class="absolute top-[10%] left-[-5%] w-[30rem] h-[30rem] rounded-full bg-blue-300/10 dark:from-blue-950/10 blur-[100px] pointer-events-none z-0"></div>
+
   <!-- Page Header -->
-  <div class="mb-8">
-    <h1 class="font-headline text-3xl font-bold text-on-surface dark:text-white">
+  <div class="mb-10 relative z-10">
+    <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Opportunities</span>
+    <h1 class="font-headline text-3.5xl font-black text-slate-900 dark:text-white mt-1">
       {{ showBookmarkedOnly ? 'Your Bookmarked Jobs' : 'Explore Open Positions' }}
     </h1>
-    <p class="font-body text-body-md text-on-surface-variant dark:text-gray-400 mt-2">
+    <p class="font-body text-sm text-slate-500 dark:text-slate-400 mt-2">
       {{ showBookmarkedOnly ? 'Manage and apply to jobs you have saved.' : 'Search and filter to discover your next career move.' }}
     </p>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
     
     <!-- Filters Sidebar -->
-    <aside class="lg:col-span-3 bg-surface-container-lowest dark:bg-[#122338] border border-outline-variant/30 dark:border-gray-800 rounded-2xl p-6 space-y-6">
-      <div class="flex justify-between items-center pb-4 border-b border-outline-variant/10">
-        <h2 class="font-headline text-lg font-bold text-on-surface dark:text-white flex items-center gap-2">
-          <span class="material-symbols-outlined text-secondary">filter_list</span>
+    <aside class="lg:col-span-3 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 space-y-6 shadow-sm">
+      <div class="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
+        <h2 class="font-headline text-md font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span class="material-symbols-outlined text-blue-600 dark:text-blue-400">filter_list</span>
           Filters
         </h2>
         <button (click)="resetFilters()" 
-                class="text-xs font-semibold text-secondary hover:underline cursor-pointer">
+                class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">
           Reset All
         </button>
       </div>
 
       <!-- Workplace Filter -->
       <div class="space-y-3">
-        <h3 class="font-headline text-sm font-bold text-on-surface dark:text-gray-200">Workplace Mode</h3>
+        <h3 class="font-headline text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">Workplace Mode</h3>
         <div class="flex flex-col gap-2.5">
-          <label *ngFor="let workplace of workplaces" class="flex items-center gap-3 cursor-pointer text-body-sm text-on-surface-variant dark:text-gray-300">
+          <label *ngFor="let workplace of workplaces" class="flex items-center gap-3 cursor-pointer text-sm text-slate-600 dark:text-slate-300">
             <input type="checkbox" 
                    [checked]="jobService.selectedWorkplaces().includes(workplace)"
                    (change)="jobService.toggleFilter('workplace', workplace)"
-                   class="rounded border-outline dark:border-gray-700 bg-transparent text-secondary focus:ring-secondary w-4 h-4"/>
+                   class="rounded border-slate-300 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 w-4 h-4"/>
             {{ workplace }}
           </label>
         </div>
@@ -41,13 +45,13 @@
 
       <!-- Job Type Filter -->
       <div class="space-y-3">
-        <h3 class="font-headline text-sm font-bold text-on-surface dark:text-gray-200">Employment Type</h3>
+        <h3 class="font-headline text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">Employment Type</h3>
         <div class="flex flex-col gap-2.5">
-          <label *ngFor="let type of jobTypes" class="flex items-center gap-3 cursor-pointer text-body-sm text-on-surface-variant dark:text-gray-300">
+          <label *ngFor="let type of jobTypes" class="flex items-center gap-3 cursor-pointer text-sm text-slate-600 dark:text-slate-300">
             <input type="checkbox" 
                    [checked]="jobService.selectedTypes().includes(type)"
                    (change)="jobService.toggleFilter('type', type)"
-                   class="rounded border-outline dark:border-gray-700 bg-transparent text-secondary focus:ring-secondary w-4 h-4"/>
+                   class="rounded border-slate-300 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 w-4 h-4"/>
             {{ type }}
           </label>
         </div>
@@ -55,13 +59,13 @@
 
       <!-- Location Filter -->
       <div class="space-y-3">
-        <h3 class="font-headline text-sm font-bold text-on-surface dark:text-gray-200">Location</h3>
+        <h3 class="font-headline text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">Location</h3>
         <div class="flex flex-col gap-2.5">
-          <label *ngFor="let loc of locations" class="flex items-center gap-3 cursor-pointer text-body-sm text-on-surface-variant dark:text-gray-300">
+          <label *ngFor="let loc of locations" class="flex items-center gap-3 cursor-pointer text-sm text-slate-600 dark:text-slate-300">
             <input type="checkbox" 
                    [checked]="jobService.selectedLocations().includes(loc)"
                    (change)="jobService.toggleFilter('location', loc)"
-                   class="rounded border-outline dark:border-gray-700 bg-transparent text-secondary focus:ring-secondary w-4 h-4"/>
+                   class="rounded border-slate-300 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 w-4 h-4"/>
             {{ loc }}
           </label>
         </div>
@@ -69,13 +73,13 @@
 
       <!-- Experience Filter -->
       <div class="space-y-3">
-        <h3 class="font-headline text-sm font-bold text-on-surface dark:text-gray-200">Experience</h3>
+        <h3 class="font-headline text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">Experience</h3>
         <div class="flex flex-col gap-2.5">
-          <label *ngFor="let exp of experiences" class="flex items-center gap-3 cursor-pointer text-body-sm text-on-surface-variant dark:text-gray-300">
+          <label *ngFor="let exp of experiences" class="flex items-center gap-3 cursor-pointer text-sm text-slate-600 dark:text-slate-300">
             <input type="checkbox" 
                    [checked]="jobService.selectedExperiences().includes(exp)"
                    (change)="jobService.toggleFilter('experience', exp)"
-                   class="rounded border-outline dark:border-gray-700 bg-transparent text-secondary focus:ring-secondary w-4 h-4"/>
+                   class="rounded border-slate-300 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 w-4 h-4"/>
             {{ exp }}
           </label>
         </div>
@@ -86,22 +90,22 @@
     <section class="lg:col-span-9 space-y-6">
       
       <!-- Search & Sort Controls -->
-      <div class="flex flex-col md:flex-row gap-4 items-center justify-between bg-surface-container-lowest dark:bg-[#122338] border border-outline-variant/30 dark:border-gray-800 p-4 rounded-2xl">
+      <div class="flex flex-col md:flex-row gap-4 items-center justify-between bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-4 rounded-2xl shadow-sm">
         <!-- Search Input -->
-        <div class="relative w-full md:w-80 flex items-center bg-surface-bright dark:bg-[#0b1c30] rounded-xl border border-outline-variant/30 dark:border-gray-700 px-3 focus-within:border-secondary focus-within:ring-1 focus-within:ring-secondary transition-all">
-          <span class="material-symbols-outlined text-on-surface-variant dark:text-gray-400 mr-2 text-xl">search</span>
+        <div class="relative w-full md:w-80 flex items-center bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 px-3 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/10 transition-all">
+          <span class="material-symbols-outlined text-slate-400 dark:text-slate-500 mr-2 text-xl">search</span>
           <input [ngModel]="jobService.searchQuery()"
                  (ngModelChange)="onSearchChange($event)"
-                 class="w-full bg-transparent border-none focus:ring-0 font-body text-body-sm py-2 text-on-surface dark:text-white placeholder:text-on-surface-variant dark:placeholder:text-gray-500" 
+                 class="w-full bg-transparent border-none focus:ring-0 font-body text-sm py-2 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600" 
                  placeholder="Search jobs..." type="text"/>
         </div>
 
         <!-- Sort By -->
         <div class="flex items-center gap-3 w-full md:w-auto justify-end">
-          <span class="text-body-sm text-on-surface-variant dark:text-gray-400 whitespace-nowrap">Sort by</span>
+          <span class="text-xs text-slate-400 dark:text-slate-500 whitespace-nowrap">Sort by</span>
           <select [ngModel]="jobService.sortBy()"
                   (ngModelChange)="onSortChange($event)"
-                  class="rounded-xl border-outline-variant/30 dark:border-gray-700 bg-surface-bright dark:bg-[#0b1c30] text-on-surface dark:text-white text-body-sm py-2 px-3 focus:border-secondary focus:ring-secondary min-w-[140px] cursor-pointer">
+                  class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-white text-sm py-2 px-3 focus:border-blue-500 focus:ring-blue-500/10 min-w-[140px] cursor-pointer">
             <option value="latest">Latest</option>
             <option value="oldest">Oldest</option>
             <option value="salary-high">Highest Salary</option>
@@ -112,7 +116,7 @@
 
       <!-- Skeleton Loader -->
       <div *ngIf="skeletonActive" class="space-y-4">
-        <div *ngFor="let i of [1, 2, 3]" class="animate-pulse bg-surface-container-lowest dark:bg-[#122338] border border-outline-variant/20 dark:border-gray-800/50 rounded-2xl p-6 space-y-4">
+        <div *ngFor="let i of [1, 2, 3]" class="animate-pulse bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl p-6 space-y-4">
           <div class="flex justify-between items-start">
             <div class="space-y-2 w-1/2">
               <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
@@ -133,22 +137,22 @@
         
         <!-- Empty State -->
         <div *ngIf="displayJobs().length === 0" 
-             class="flex flex-col items-center justify-center text-center p-12 bg-surface-container-lowest dark:bg-[#122338] border border-outline-variant/20 dark:border-gray-800 rounded-2xl space-y-4">
-          <span class="material-symbols-outlined text-6xl text-on-surface-variant/40 dark:text-gray-600">search_off</span>
-          <h3 class="font-headline text-xl font-bold text-on-surface dark:text-white">No jobs found</h3>
-          <p class="font-body text-body-md text-on-surface-variant dark:text-gray-400 max-w-sm">
+             class="flex flex-col items-center justify-center text-center p-12 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-2xl space-y-4 shadow-sm">
+          <span class="material-symbols-outlined text-6xl text-slate-300 dark:text-slate-700">search_off</span>
+          <h3 class="font-headline text-xl font-bold text-slate-900 dark:text-white">No jobs found</h3>
+          <p class="font-body text-sm text-slate-500 dark:text-slate-400 max-w-sm">
             We couldn't find any positions matching your search or filters. Try adjusting your search query or reset all filters.
           </p>
           <button (click)="resetFilters()" 
-                  class="bg-secondary text-white font-label-md px-6 py-2.5 rounded-xl hover:bg-blue-600 active:scale-95 transition-all duration-200">
+                  class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-xl active:scale-95 transition-all duration-200">
             Clear Filters
           </button>
         </div>
 
         <!-- Job Cards -->
         <div *ngFor="let job of displayJobs()" 
-             class="bg-surface-container-lowest dark:bg-[#122338] border border-outline-variant/30 dark:border-gray-800 rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-secondary dark:hover:border-secondary-fixed transition-all duration-300 hover:shadow-md relative overflow-hidden group">
-          <div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent group-hover:bg-secondary dark:group-hover:bg-secondary-fixed transition-colors"></div>
+             class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 relative overflow-hidden group shadow-sm">
+          <div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent group-hover:bg-blue-600 dark:group-hover:bg-blue-400 transition-colors"></div>
           
           <div class="space-y-3 flex-grow">
             <div class="flex flex-wrap items-center gap-2">
@@ -165,24 +169,24 @@
 
             <div>
               <h3 [routerLink]="['/jobs', job.id]" 
-                  class="font-headline text-xl font-bold text-on-surface dark:text-white cursor-pointer hover:text-secondary dark:hover:text-secondary-fixed transition-colors inline-block">
+                  class="font-headline text-xl font-bold text-slate-900 dark:text-white cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors inline-block">
                 {{ job.title }}
               </h3>
-              <p class="font-body text-body-sm text-on-surface-variant dark:text-gray-400 mt-0.5">{{ job.company }}</p>
+              <p class="font-body text-xs text-slate-500 dark:text-slate-400 mt-0.5">{{ job.company }}</p>
             </div>
 
             <!-- Info Chips -->
-            <div class="flex flex-wrap items-center gap-4 text-xs text-on-surface-variant dark:text-gray-400 font-body">
+            <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-slate-400 font-body">
               <span class="flex items-center gap-1">
-                <span class="material-symbols-outlined text-[16px] text-gray-400">location_on</span>
+                <span class="material-symbols-outlined text-[16px] text-slate-400">location_on</span>
                 {{ job.location }}
               </span>
               <span class="flex items-center gap-1">
-                <span class="material-symbols-outlined text-[16px] text-gray-400">business_center</span>
+                <span class="material-symbols-outlined text-[16px] text-slate-400">business_center</span>
                 {{ job.experience }}
               </span>
               <span class="flex items-center gap-1">
-                <span class="material-symbols-outlined text-[16px] text-gray-400">calendar_today</span>
+                <span class="material-symbols-outlined text-[16px] text-slate-400">calendar_today</span>
                 Posted {{ job.postedDate }}
               </span>
             </div>
@@ -192,7 +196,7 @@
           <div class="flex items-center sm:flex-col sm:items-end gap-3 justify-between sm:justify-center flex-shrink-0">
             <!-- Bookmark Icon Toggle -->
             <button (click)="toggleBookmark(job.id)"
-                    class="p-2 rounded-xl border border-outline-variant/30 dark:border-gray-700 text-on-surface-variant hover:bg-surface-container dark:hover:bg-slate-800 transition-colors active:scale-95 duration-200">
+                    class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 hover:bg-slate-100 dark:bg-slate-950 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors active:scale-95 duration-200">
               <span class="material-symbols-outlined" 
                     [class.text-amber-500]="isBookmarked(job.id)" 
                     [class.fill-1]="isBookmarked(job.id)"
@@ -202,7 +206,7 @@
             </button>
             
             <a [routerLink]="['/jobs', job.id]" 
-               class="bg-primary dark:bg-secondary text-on-primary dark:text-white font-label-md px-5 py-2.5 rounded-xl hover:bg-surface-tint dark:hover:bg-blue-600 transition-colors duration-200 text-center text-sm active:scale-95">
+               class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 text-center text-sm active:scale-95 shadow-sm shadow-blue-500/10">
               View Details
             </a>
           </div>
@@ -212,10 +216,10 @@
 
       <!-- Pagination (only when jobs exist) -->
       <div *ngIf="!skeletonActive && displayJobs().length > 0 && totalPages() > 1" 
-           class="flex items-center justify-between pt-6 border-t border-outline-variant/10 font-body">
+           class="flex items-center justify-between pt-6 border-t border-slate-100 dark:border-slate-800 font-body relative z-10">
         <button (click)="prevPage()" 
                 [disabled]="currentPage() === 1"
-                class="flex items-center gap-1 font-semibold text-body-sm text-on-surface-variant dark:text-gray-300 disabled:opacity-40 disabled:cursor-not-allowed hover:text-secondary dark:hover:text-white">
+                class="flex items-center gap-1 font-semibold text-sm text-slate-500 dark:text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:text-blue-600 dark:hover:text-white">
           <span class="material-symbols-outlined text-sm">arrow_back</span>
           Previous
         </button>
@@ -224,11 +228,11 @@
         <div class="flex gap-1.5">
           <button *ngFor="let page of getPagesArray()"
                   (click)="jobService.setPage(page)"
-                  [class.bg-secondary]="page === currentPage()"
+                  [class.bg-blue-600]="page === currentPage()"
                   [class.text-white]="page === currentPage()"
-                  [class.bg-surface-container-low]="page !== currentPage()"
+                  [class.bg-slate-100]="page !== currentPage()"
                   [class.dark:bg-[#122338]]="page !== currentPage()"
-                  [class.text-on-surface-variant]="page !== currentPage()"
+                  [class.text-slate-600]="page !== currentPage()"
                   [class.dark:text-gray-300]="page !== currentPage()"
                   class="w-9 h-9 rounded-xl flex items-center justify-center font-semibold text-xs active:scale-95 transition-all">
             {{ page }}
@@ -237,7 +241,7 @@
 
         <button (click)="nextPage()" 
                 [disabled]="currentPage() === totalPages()"
-                class="flex items-center gap-1 font-semibold text-body-sm text-on-surface-variant dark:text-gray-300 disabled:opacity-40 disabled:cursor-not-allowed hover:text-secondary dark:hover:text-white">
+                class="flex items-center gap-1 font-semibold text-sm text-slate-500 dark:text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:text-blue-600 dark:hover:text-white">
           Next
           <span class="material-symbols-outlined text-sm">arrow_forward</span>
         </button>
