@@ -54,7 +54,7 @@ export class JobsComponent implements OnInit, OnDestroy {
       this.skeletonTimeout = setTimeout(() => {
         this.skeletonActive = false;
         this.cdr.detectChanges();
-      }, 1000); // 1-second delay after typing stops
+      }, 300); // 300ms delay after typing stops
     });
 
     this.querySub = this.route.queryParams.subscribe(params => {
